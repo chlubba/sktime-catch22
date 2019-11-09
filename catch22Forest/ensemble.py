@@ -83,6 +83,10 @@ class catch22ForestClassifier(BaseEstimator, ClassifierMixin):
             c22_dict = catch22_all(series)
             X_catch22.append(c22_dict['values'])
 
+        # replace the rare nans
+        X_catch22 = np.array(X_catch22)
+        X_catch22[np.logical_or(np.isnan(X_catch22),np.isinf(X_catch22))] = 0
+
         return self.bagging_classifier_.predict_proba(X_catch22)
 
     def fit(self, X, y, sample_weight=None, check_input=True):

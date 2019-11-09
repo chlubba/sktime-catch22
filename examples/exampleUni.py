@@ -2,12 +2,19 @@ import numpy as np
 import time
 from sklearn.preprocessing import LabelEncoder
 from sktime.datasets import load_gunpoint
+from sktime.utils.load_data import load_from_tsfile_to_dataframe
 from catch22Forest.ensemble import catch22ForestClassifier
 
 if __name__ == "__main__":
 
     X_train, y_train = load_gunpoint(split='TRAIN', return_X_y=True)
     X_test, y_test = load_gunpoint(split='TEST', return_X_y=True)
+
+    # # alternatively load data from disk
+    # X_train, y_train = load_from_tsfile_to_dataframe(
+    #     '/home/carl/Downloads/Matthew_errorData/UWaveGestureLibraryZ_TRAIN.ts')
+    # X_test, y_test = load_from_tsfile_to_dataframe(
+    #     '/home/carl/Downloads/Matthew_errorData/UWaveGestureLibraryZ_TEST.ts')
 
     # In case the labels are not numbers
     if not isinstance(y_train[0], (int, float)):
